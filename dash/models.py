@@ -11,6 +11,7 @@ class Seance(models.Model):
         blank=True,
         null=True
     )
+    nb_participants = models.IntegerField(_('Nombre de participants'),default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

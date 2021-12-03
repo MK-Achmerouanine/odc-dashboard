@@ -1,14 +1,10 @@
-{% extends 'layout/with-sidebar.html' %} 
-
-{% block style %}
+{% extends 'layout/with-sidebar.html' %} {% load static %} {% block style %}
 <style>
-    .navbar-brand{
-        background-color: rgb(255,121,0);
-    }
+  .navbar-brand {
+    background-color: rgb(255, 121, 0);
+  }
 </style>
-{% endblock style %}
-    
-{% block content %}
+{% endblock style %} {% block content %}
 <div
   class="
     d-flex
@@ -42,12 +38,87 @@
 </div>
 
 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+<canvas class="my-4 w-100" id="myChart2" width="900" height="380"></canvas>
 
-{% endblock content %}
+{% endblock content %} {% block script %}
+<script>
+        /* globals Chart:false, feather:false */
 
-{% block script %}
-    <script>
-        alert('JS is working!')
-    </script>
+        // Graphs
+        var ctx = document.getElementById('myChart')
+        // eslint-disable-next-line no-unused-vars
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [{% for seance in seances %}'{{seance.titre}}',{% endfor %}],
+            datasets: [{
+              data: [{% for seance in seances %}{{seance.nb_participants}},{% endfor %}],
+              lineTension: 0,
+              backgroundColor: [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 205, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(201, 203, 207, 0.2)'
+  ],
+              borderColor: 'rgb(255,121,0)',
+              borderWidth: 1,
+              pointBackgroundColor: 'rgb(255,121,0)'
+            },
+          ]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            },
+            legend: {
+              display: false
+            }
+          }
+        })
+        // Graphs
+        var ctx2 = document.getElementById('myChart2')
+        // eslint-disable-next-line no-unused-vars
+        var myChart2 = new Chart(ctx2, {
+          type: 'pie',
+          data: {
+            labels: [{% for seance in seances %}'{{seance.titre}}',{% endfor %}],
+            datasets: [{
+              data: [{% for seance in seances %}{{seance.nb_participants}},{% endfor %}],
+              lineTension: 0,
+              backgroundColor: [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 205, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(201, 203, 207, 0.2)'
+  ],
+              borderColor: 'rgb(255,121,0)',
+              borderWidth: 1,
+              pointBackgroundColor: 'rgb(255,121,0)'
+            },
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            },
+            legend: {
+              display: false
+            }
+          }
+        })
+</script>
 {% endblock script %}
-    
